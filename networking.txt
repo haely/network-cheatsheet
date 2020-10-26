@@ -1,0 +1,22 @@
+Networking Protocols - a cheatsheet for common interview questions 
+
+Q1. Explain how 'www.abc.ghc.com' works
+A1. DNS, TCP, HTTP protocols
+    1. If the search term is not a valid domain or protocol, the text is fed to the default web search engine. (Sometimes a special piece of text is appended to tell the search engine that it came from a browser's URL) [WHY?]
+    2. Punycode encoding is applied if non-ascii charcters are present in hostname.
+    3. The browser checks its 'preloaded HTTP Strict Transport Security (HSTS) list. This is a list of websites that have requested HTTPS only. The website not in the list can also equest HTTPS only after the first HTTP request. This leaves the user vulnerable to 'Downgrade Attack'.
+    4. DNS lookup: 
+        a. browser looks for the domain in its cache. chrome://net-internals/#dns shows chrome DNS cache (TTL: ~ 1 min, configurable)
+        b. browser calls 'gethostbyname' to see OS cache (TTL ~ 1 day, configurable).
+        c. checks with local router or ISP's caching DNS server.
+    5. ARP process:
+        target IP = DNS server/default gateway. Level 2 ARP request
+        a.  ARP cache for target IP and MAC. If not, ARP route table to see if the target IP is on any of the subnets. If not, default gateway subnet is used.
+        b. MAC for this selected network interface is looke up.
+        c. ARP reply depends on hardware between the router and the computer.
+           Directly to router : router repsonds with ARP reply
+           Hub/Switch - same wire, router responds with ARP reply
+           ARP reply: target/sender IP/MAC
+    6. DNS process:
+        a. Queries are iterative or recursive. Recursive queries find the final IP address and return that to the browser. Iterative queries return the next device's IP and the browser continues asking for the IP.
+        b.  

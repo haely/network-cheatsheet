@@ -1,0 +1,97 @@
+Parsing log files and other common Python questions:
+
+Sample line of a sample log 'example.logs'
+example.logs = 27.59.104.166 - - [o4/Oct/2019:21:15:54 +0000] "GET /users/login HTTP/1.1" 200 41716 "-" "okhttp/3.12.1"
+
+Pattern of nginx default access log
+IP_ADDRESS - - [DATETIME] "METHOD /users/login HTTP/1.1" STATUS_CODE 41716 "-" "okhttp/3.12.1"
+
+Q1. Get the number of logs we get each minute for different status codes
+
+parsed_data = []
+
+with open(example.logs", "r") as file:
+    prev_time = ""
+    data = {}
+    for line in file:
+        time = line.split("[")[1].split("]")[0].split(" ")[0]
+        status_code = line.split(' " ')[2].split(" ")[1]
+        if prev_time != "":
+            if time == prev_time:
+                data[time]["count"] = data[time]["count"] + 1
+                if status_code in data[time]:
+                    data[time][status_code] = data[time][status_code} + 1
+                else:
+                    data[time][status_code] = 1
+            else:
+                prev_time = time
+                parsed_data.append(data)
+                data = {}
+                data[time] = {"count": 1, status_code: 1}
+        else:
+            prev_time = time
+            data[time] = {"count": 1, status_code: 1}
+    for i in parsed_data:
+        print(i)
+
+
+1. Open file in read mode - read line by line
+2. A dictionary named Data is creted. Key = timestamp, value is a dictioanry again. {timestamp: {count: , statuscode: }}
+3. Regex/any other changes
+---- finish this -----
+
+----NEW PAGE----
+1. Open the log file 
+2. Parse more than one line
+3. Export parsed data to text file
+4. Turn block of code into function
+5. Match regex into already parsed data
+
+
+1. with open(log_file_path, 'r') as file:
+2. for line in file:
+
+example till point 4:
+import re
+import time
+from time import strftime
+
+def main():
+    log_file_path = r"C:\ios logs\sfbios.log"
+    exported_file_path = r"C:\ios logs\filtered"
+    time_now = str(strftime(%Y-%m-%d %H-%M-%S", time.localtime()))
+    
+    file = "\\" + "Parser Output " + time_now + ".txt"
+    export_file = export_file_path + file
+    regex = '(<property name="(.*?)">(.*?)<\/propert>)'
+
+    parsedData(log_file_path, export_file, regex, read_line=True)
+
+
+def parseData(log_file_path, export_file, regex, read_line=True):
+    with open(log_file_path, "r") as file:
+        match_list = []
+       if read_line == True:
+           for line in file:
+               for match in re.finditer(regex, line, re.S):
+               match_text = match.group()
+               match_list.append(match_text)
+               print(match_text)
+  
+       else:
+           data = file.read()
+           for match in re.finditer(regex, data, re.S):
+               match_text = match.group();
+               match_list.append(match_text)
+    file.close()
+    
+    with open(export_file, "w+") as file:
+        file.write("EXPORTED DATA:\n")
+        match_list_clean = list(set(match_list))
+        for item in xrange(0, len(match_list_clean)):
+            print(match_list_clean[item])
+            file.write(match_list_clean[item] + "\n")
+    file.close()
+
+if __name__ == '__main__':
+    main()
