@@ -128,3 +128,48 @@ for dirName, subdirList, fileList in os.walk(rootDir):
     if len(subdirList) > 0:
         del subdirList[0]
 
+
+
+
+----------- list to csv write -----------------
+import csv 
+  
+  
+# field names  
+fields = ['Name', 'Branch', 'Year', 'CGPA']  
+    
+# data rows of csv file  
+rows = [ ['Nikhil', 'COE', '2', '9.0'],  
+         ['Sanchit', 'COE', '2', '9.1'],  
+         ['Aditya', 'IT', '2', '9.3'],  
+         ['Sagar', 'SE', '1', '9.5'],  
+         ['Prateek', 'MCE', '3', '7.8'],  
+         ['Sahil', 'EP', '2', '9.1']]  
+  
+  
+  --------- dictionary to csv ----------
+  import csv 
+  
+field_names = ['No', 'Company', 'Car Model'] 
+  
+cars = [ 
+{'No': 1, 'Company': 'Ferrari', 'Car Model': '488 GTB'}, 
+{'No': 2, 'Company': 'Porsche', 'Car Model': '918 Spyder'}, 
+{'No': 3, 'Company': 'Bugatti', 'Car Model': 'La Voiture Noire'}, 
+{'No': 4, 'Company': 'Rolls Royce', 'Car Model': 'Phantom'}, 
+{'No': 5, 'Company': 'BMW', 'Car Model': 'BMW X7'}, 
+] 
+  
+with open('Names.csv', 'w') as csvfile: 
+    writer = csv.DictWriter(csvfile, fieldnames = field_names) 
+    writer.writeheader() 
+    writer.writerows(cars) 
+    
+ 
+with open('GFG', 'w') as f: 
+      
+    # using csv.writer method from CSV package 
+    write = csv.writer(f) 
+      
+    write.writerow(fields) 
+    write.writerows(rows)
