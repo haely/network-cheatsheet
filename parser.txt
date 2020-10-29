@@ -114,7 +114,50 @@ def jprint(obj):
 jprint(response.json())
 
 
+-- also --
 
+import requests
+
+session = requests.Session()
+
+def get_jobs():
+    url = "https://api.angel.co/1/tags/1664/jobs" 
+    first_page = session.get(url).json()
+    yield first_page
+    num_pages = first_page['last_page']
+
+    for page in range(2, num_pages + 1):
+        next_page = session.get(url, params={'page': page}).json()
+        yield next_page
+
+for page in get_jobs():
+    # TODO: process the page
+    
+    
+-- or --
+import requests
+from lxml import html
+
+
+URL_PATTERN = "http://www.wiseowl.co.uk/videos/default-{}.htm"
+
+with requests.Session() as session:
+    page_number = 1
+    while True:
+        response = session.get(URL_PATTERN.format(page_number))
+        if response.status_code == 404:  # break once the page is not found
+            break
+
+        print("Processing page number {}..".format(page_number))
+
+        tree = html.fromstring(response.text)
+        for video_link in tree.xpath('//p[@class="woVideoListDefaultSeriesTitle"]//a'):
+            title = video_link.text
+            link = video_link.attrib['href']
+
+            print(title, link)
+
+        page_number += 1
 -------------- Directory traversal --------------
 import os
  
