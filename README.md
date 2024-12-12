@@ -1,4 +1,4 @@
-# Network Engineering Interview Prep
+# Network Engineering (EE281) Prep
 
 This repository contains helpful resources for preparing for network engineering interviews.
 
