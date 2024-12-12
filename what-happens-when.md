@@ -1,4 +1,4 @@
-# Networking Protocols - A Cheatsheet for Common Interview Questions
+# Networking Protocols - A Cheatsheet for Common Questions
 
 **Q1. Explain how 'www.abc.ghc.com' works**
 
