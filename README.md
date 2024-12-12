@@ -42,10 +42,10 @@ This repository contains helpful resources for preparing for network engineering
 
 ## How to Use
 
-* Review the cheatsheet and guides to refresh your knowledge of networking concepts.
-* Use the code examples as a starting point for practicing your Python skills and solving network-related programming tasks.
-* Adapt the code to analyze your own log files or interact with different APIs.
-
+* Review the cheatsheet and guides to refresh EE281 midterm concepts.
+* Use the code examples as a starting point for solving network-related programming tasks.
+* yea, thats it.. gl
+  
 ## Contributing
 
 Feel free to contribute to this repository by:
